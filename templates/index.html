@@ -1,5 +1,5 @@
 {% extends 'base.html' %} 
-
+{% load static %}
 
 {% block content %}
 	<main>
@@ -22,7 +22,7 @@
 			<div id="tm-gallery-page-pizza" class="tm-gallery-page">
 				<article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
 					<figure>
-						<img src=" {% static  'img/gallery/01.jpg'%}" alt="Image" class="img-fluid tm-gallery-img" />
+						<img src="{% static 'img/gallery/01.jpg' %}" alt="Image" class="img-fluid tm-gallery-img" />
 						<figcaption>
 							<h4 class="tm-gallery-title">Fusce dictum finibus</h4>
 							<p class="tm-gallery-description">Nam in suscipit nisi, sit amet consectetur metus. Ut sit amet tellus accumsan</p>
@@ -30,39 +30,13 @@
 						</figcaption>
 					</figure>
 				</article>
-			</div> <!-- gallery page 1 -->
-			
-			<!-- gallery page 2 -->
-			<div id="tm-gallery-page-salad" class="tm-gallery-page hidden">
-				<article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
-					<figure>
-						<img src="img/gallery/04.jpg" alt="Image" class="img-fluid tm-gallery-img" />
-						<figcaption>
-							<h4 class="tm-gallery-title">Salad Menu One</h4>
-							<p class="tm-gallery-description">Proin eu velit egestas, viverra sapien eget, consequat nunc. Vestibulum tristique</p>
-							<p class="tm-gallery-price">$25</p>
-						</figcaption>
-					</figure>
-				</article>
-			<!-- gallery page 3 -->
-			<div id="tm-gallery-page-noodle" class="tm-gallery-page hidden">
-				<article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
-					<figure>
-						<img src="img/gallery/08.jpg" alt="Image" class="img-fluid tm-gallery-img" />
-						<figcaption>
-							<h4 class="tm-gallery-title">Noodle One</h4>
-							<p class="tm-gallery-description">Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-							<p class="tm-gallery-price">$12.50</p>
-						</figcaption>
-					</figure>
-				</article>
-			</div> <!-- gallery page 3 -->
+			</div> 
 		</div>
 		<div class="tm-section tm-container-inner">
 			<div class="row">
 				<div class="col-md-6">
 					<figure class="tm-description-figure">
-						<img src="img/img-01.jpg" alt="Image" class="img-fluid" />
+						<img src="{% static 'img/img-01.jpg' %}" alt="Image" class="img-fluid" />
 					</figure>
 				</div>
 				<div class="col-md-6">
