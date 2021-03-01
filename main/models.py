@@ -9,11 +9,10 @@ class User(AbstractUser):
 
 class Category(models.Model):
     title = models.CharField(max_length=200, null=False, blank=False)
-    number_of_products = models.PositiveIntegerField(default=0)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
 
     def __str__(self):
-        return '%s %s'%(self.title, self.number_of_products)
+        return '%s'%(self.title)
 
     class Meta:
         verbose_name_plural = 'Categories'
@@ -24,8 +23,8 @@ class Product(models.Model):
     price = models.FloatField(null=False, blank=False)
     description = models.TextField(null=True, blank=True)
     image = models.ImageField(upload_to='', null=False, blank=False)
-    category = models.ManyToManyField(Category, blank=False)
-    slug = models.SlugField()
+    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    slug = models.SlugField(unique=True)
     item_count = models.PositiveIntegerField(default=1)
     time_created = models.DateTimeField(auto_now=True)
     in_stock = models.BooleanField()
