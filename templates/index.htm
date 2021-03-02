@@ -1,12 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buy Me</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends 'base.html'%}
+{% load static %}
+
+{% block content %}
+<div class="Products">
+  {% for product in products %}
+    <div class="card" style="width: 10rem; margin-block: 1rem; margin-left: 2cm; align-items: inherit; ">
+        <img src="{{product.image.url}}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{product.name}}</h5>
+          <p class="card-text">{{product.description}}</p>
+          <a href="#" class="btn btn-primary">{{product.price}}</a>
+          <a href="{% url 'add-to-cart' product.slug %} " class="btn btn-primary">Add to cart</a>
+        </div>
+      </div>
+  {% endfor %}
+</div>
+ {% endblock content %}
