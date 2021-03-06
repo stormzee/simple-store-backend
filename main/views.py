@@ -13,17 +13,19 @@ def index(request):
 
     return render(request, 'index.htm',context=context)
 
+def product_detail(request, slug):
+    product = get_object_or_404(Product, slug=slug)
+
+    ctx = {
+        'product':product
+    }
+    return render(request, 'product-detail.html', ctx)
+
 def Add_to_cart(request, slug):
     # get the product
     product = get_object_or_404(Product, slug=slug)
     # create an empty cart
-    new_cart = Cart.objects.get_or_create(user=request.user)
-    new_cart.products.add(product, bulk=False)
-    new_cart.number_of_products  = 0
-    new_cart.total_amount = 30.0
-    new_cart.save()
-    return redirect('/')
-
+    
 def cart(request):
     cart = Cart.objects.get(user=request.user)
     context = {

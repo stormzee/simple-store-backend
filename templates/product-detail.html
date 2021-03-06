@@ -1,0 +1,16 @@
+{% include 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    {% if product %}
+
+        <p>{{product.name}}</p>
+        <p>{{product.price}}</p>
+        <p>{{product.image.url}}</p>
+        <p>{{product.item_count}}</p>
+        <p>{{product.category}}</p>
+    
+    {% endif %}
+
+{% endblock content %}
