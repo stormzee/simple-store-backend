@@ -40,22 +40,30 @@ class Product(models.Model):
         self.is_available()
         super().save(*args, **kwargs)
 
-    def get_absolute_url(self):
-        return reverse("Product.slug", kwargs={"pk": self.pk})
+    # def get_absolute_url(self):
+    #     return reverse("Product.slug", kwargs={"pk": self.pk})
     
     
     def __str__(self):
             return '%s - %s'%(self.name, self.price)
 
+class CartItem(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return self.product.name
 
 class Cart(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    products = models.ManyToManyField(Product)
+    products = models.ManyToManyField(CartItem)
     number_of_products = models.PositiveIntegerField(default=0)
     total_amount = models.FloatField()
 
-    def get_absolute_url(self):
-        return reverse("Cart.user.username", kwargs={"pk": self.pk})
+
+    # def get_absolute_url(self):
+    #     return reverse("Cart.user.username", kwargs={"pk": self.pk})
     
 
     def __str__(self):
@@ -71,7 +79,7 @@ class Review(models.Model):
     def __str__(self):
         return "%s's review on %s"%(self.user.username, self.product)
 
-    def get_absolute_url(self):
-        return reverse("Review.user.username", kwargs={"pk": self.pk})
+    # def get_absolute_url(self):
+    #     return reverse("Review.user.username", kwargs={"pk": self.pk})
     
     
