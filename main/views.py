@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from . models import Product, Category, Cart, Review
+from . models import Product, Category, Cart, Review, CartItem
 
 # Create your views here.
 
@@ -24,6 +24,10 @@ def product_detail(request, slug):
 def Add_to_cart(request, slug):
     # get the product
     product = get_object_or_404(Product, slug=slug)
+    cart_product = CartItem.objects.get_or_create(product=product.id, user=request.user)
+    cart_order, created = Cart.objects.get_or_create(user=request.user, products=cart_product, total_amount=20.3)
+    cart_order.save()
+    return redirect('/')
     # create an empty cart
     
 def cart(request):

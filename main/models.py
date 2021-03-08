@@ -40,8 +40,8 @@ class Product(models.Model):
         self.is_available()
         super().save(*args, **kwargs)
 
-    # def get_absolute_url(self):
-    #     return reverse("Product.slug", kwargs={"pk": self.pk})
+    def get_absolute_url(self):
+        return reverse("product-detail", kwargs={"slug": self.slug})
     
     
     def __str__(self):
@@ -57,7 +57,7 @@ class CartItem(models.Model):
 
 class Cart(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    products = models.ManyToManyField(CartItem)
+    products = models.ForeignKey(CartItem, on_delete=models.CASCADE)
     number_of_products = models.PositiveIntegerField(default=0)
     total_amount = models.FloatField()
 
