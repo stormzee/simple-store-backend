@@ -24,9 +24,9 @@ def product_detail(request, slug):
 def Add_to_cart(request, slug):
     # get the product
     product = get_object_or_404(Product, slug=slug)
-    cart_product = CartItem.objects.get_or_create(product=product.id, user=request.user)
-    cart_order, created = Cart.objects.get_or_create(user=request.user, products=cart_product, total_amount=20.3)
-    cart_order.save()
+    cart_product, created = CartItem.objects.get_or_create(user=request.user, product=product)
+    cart_order, created = Cart.objects.get_or_create(user=request.user, number_of_products=20,total_amount=12)
+    cart_order.products.add(cart_product)
     return redirect('/')
     # create an empty cart
     

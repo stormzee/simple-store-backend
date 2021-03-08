@@ -42,14 +42,18 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse("product-detail", kwargs={"slug": self.slug})
+
+    def get_add_to_cart_url(self):
+        return reverse("add-to-cart", kwargs={"slug": self.slug})
+
     
     
     def __str__(self):
             return '%s - %s'%(self.name, self.price)
 
 class CartItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
 
     def __str__(self):
@@ -57,9 +61,9 @@ class CartItem(models.Model):
 
 class Cart(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    products = models.ForeignKey(CartItem, on_delete=models.CASCADE)
+    products = models.ManyToManyField(CartItem)
     number_of_products = models.PositiveIntegerField(default=0)
-    total_amount = models.FloatField()
+    total_amount = models.FloatField(default=0)
 
 
     # def get_absolute_url(self):
