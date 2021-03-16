@@ -25,14 +25,36 @@ def Add_to_cart(request, slug):
     # get the product
     product = get_object_or_404(Product, slug=slug)
     cart_product, created = CartItem.objects.get_or_create(user=request.user, product=product)
-    cart_order, created = Cart.objects.get_or_create(user=request.user, number_of_products=20,total_amount=12)
+
+    if cart_product:
+        cart_product.quantity += 1
+    cart_product.save()
+
+    cart_order, created = Cart.objects.get_or_create(user=request.user)
     cart_order.products.add(cart_product)
+    cart_order.number_of_products = cart_order.products.count()
+    qs = cart_order.products.all()
+
+    if qs.exists():
+        for item in qs:
+            cart_order.total_amount += item.product.price
+    
+    cart_order.save()
     return redirect('/')
     # create an empty cart
     
 def cart(request):
-    cart = Cart.objects.get(user=request.user)
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    cart_products = cart.products.all()
     context = {
-        'cart':cart
+        'cart_products':cart_products
     }
     return render(request, 'cart.html', context=context)
+
+
+def remove_from_cart(request, cart_item_id):
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    cart_item = cart.products.get(product=cart_item_id)
+    cart.products.remove(cart_item)
+    cart.save()
+    return redirect('cart')

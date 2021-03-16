@@ -54,10 +54,13 @@ class Product(models.Model):
 class CartItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
-    quantity = models.PositiveIntegerField(default=1)
+    quantity = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.product.name
+
+    # def remove_from_cart_url(self):
+    #     return reverse('remove-from-cart', kwargs={"pk":self.product.id})
 
 class Cart(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -65,10 +68,6 @@ class Cart(models.Model):
     number_of_products = models.PositiveIntegerField(default=0)
     total_amount = models.FloatField(default=0)
 
-
-    # def get_absolute_url(self):
-    #     return reverse("Cart.user.username", kwargs={"pk": self.pk})
-    
 
     def __str__(self):
         return "%s's cart"%(self.user.username)

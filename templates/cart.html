@@ -1,0 +1,19 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="card" style="width: 18rem;">
+        <ul class="list-group list-group-flush">
+            {% for cart_product in cart_products %}
+                <li class="list-group-item">{{cart_product.product.name}}
+                <a href="{% url 'remove-from-cart' cart_product.product.id %}">Remove</a>
+                {% comment %} <span class="badge badge-primary badge-pill">{{ cart_product.product.price }}  </span></li> {% endcomment %}
+
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock content %}
+
+
