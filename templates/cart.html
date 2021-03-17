@@ -7,10 +7,12 @@
         <ul class="list-group list-group-flush">
             {% for cart_product in cart_products %}
                 <li class="list-group-item">{{cart_product.product.name}}
-                <a href="{% url 'remove-from-cart' cart_product.product.id %}">Remove</a>
+                <p>{{cart_product.quantity}}</p>
+                <a href="{% url 'remove-from-cart' cart_product.product.id %}">Remove</a></li>
                 {% comment %} <span class="badge badge-primary badge-pill">{{ cart_product.product.price }}  </span></li> {% endcomment %}
-
             {% endfor %}
+            <p>{{cart.number_of_products}}</p>
+            <p>{{cart.total_amount}}</p>
         </ul>
     </div>
 

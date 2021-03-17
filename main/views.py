@@ -47,7 +47,7 @@ def cart(request):
     cart, created = Cart.objects.get_or_create(user=request.user)
     cart_products = cart.products.all()
     context = {
-        'cart_products':cart_products
+        'cart_products':cart_products, 'cart':cart,
     }
     return render(request, 'cart.html', context=context)
 
@@ -56,5 +56,6 @@ def remove_from_cart(request, cart_item_id):
     cart, created = Cart.objects.get_or_create(user=request.user)
     cart_item = cart.products.get(product=cart_item_id)
     cart.products.remove(cart_item)
+    cart_item.delete()
     cart.save()
     return redirect('cart')
